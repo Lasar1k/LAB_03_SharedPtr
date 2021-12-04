@@ -3,6 +3,6 @@
 #include "header.hpp"
 int main()
 {
-	SharedPtr<int> ptr;
-	return 0;
+    SharedPtr<int> ptr;
+    return 0;
 }
