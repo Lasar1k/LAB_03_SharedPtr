@@ -28,7 +28,8 @@ class SharedPtr {
     {
       return;
     }
-    else{
+    else
+    {
       *(counter) = *(counter) - 1;
       if (*(counter) == 0)
       {
@@ -42,9 +43,8 @@ class SharedPtr {
       }
     }
   }
-  auto operator=(const SharedPtr& r)
-  {
-    if(*this == r)
+  auto operator=(const SharedPtr& r){
+    if (*this == r)
     {
       return *this;
     }
@@ -54,8 +54,7 @@ class SharedPtr {
     counter++;
     return *this;
   }
-  auto operator=(SharedPtr&& r)
-  {
+  auto operator=(SharedPtr&& r){
     if (*this == r)
     {
       return *this;
@@ -68,14 +67,14 @@ class SharedPtr {
     *(counter) = *(counter) + 1;
     return *this;
   }
-
   // проверяет, указывает ли указатель на объект
   operator bool() const{
     if (*(counter) > 0) 
     {
       return true;
     }
-    else{
+    else
+    {
       return false;
     }
   }
@@ -105,13 +104,15 @@ class SharedPtr {
     std::swap(Sptr, r.Sptr);
     std::swap(counter, r.counter);
   }
-  // возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
+  // возвращает количество объектов SharedPtr,
+  //которые ссылаются на тот же управляемый объект
   unsigned int use_count() const{
-    if (Sptr!=nullptr)
+    if (Sptr != nullptr)
     {
       return *(counter);
     }
-    else{
+    else
+    {
       return 0;
     }
   }
