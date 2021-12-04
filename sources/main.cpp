@@ -1,3 +1,7 @@
-// Copyright 2020 Your Name <your_email>
-
-#include <header.hpp>
+#include <iostream>
+#include "header.hpp"
+int main()
+{
+	SharedPtr<int> ptr;
+	return 0;
+}
