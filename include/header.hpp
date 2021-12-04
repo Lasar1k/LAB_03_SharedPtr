@@ -3,6 +3,7 @@
 #define INCLUDE_HEADER_HPP_
 #include <iostream>
 #include <atomic>
+#include <utility>
 template <typename T>
 class SharedPtr {
   T*Sptr = nullptr;
@@ -13,7 +14,7 @@ class SharedPtr {
     Sptr = nullptr;
     counter = nullptr;
   }
-  SharedPtr(T* ptr){
+  explicit SharedPtr(T* ptr){
     Sptr = ptr;
     counter = new std::atomic_uint[1];
   }
@@ -26,14 +27,12 @@ class SharedPtr {
   ~SharedPtr(){
     if (counter == nullptr) {
       return;
-    }
-    else {
+    } else {
       *(counter) = *(counter) - 1;
       if (*(counter) == 0) {
         delete Sptr;
         delete counter;
-      }
-      else if (*(counter) > 0) {
+      } else if (*(counter) > 0) {
         Sptr = nullptr;
         counter = nullptr;
       }
@@ -65,8 +64,7 @@ class SharedPtr {
   operator bool() const{
     if (*(counter) > 0) {
       return true;
-    }
-    else {
+    } else {
       return false;
     }
   }
@@ -100,8 +98,7 @@ class SharedPtr {
   unsigned int use_count() const{
     if (Sptr != nullptr) {
       return *(counter);
-    }
-    else {
+    } else {
       return 0;
     }
   }
