@@ -1,4 +1,4 @@
-// Copyright 2020 Your Name <your_email>
+// Copyright 2021 Lasar1k <alf.ivan2002@gmail.com>
 
 #include <gtest/gtest.h>
 #include <header.hpp>
