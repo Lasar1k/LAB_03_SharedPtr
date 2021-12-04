@@ -1,5 +1,4 @@
-// Copyright 2020 Your Name <your_email>
-
+// Copyright 2020 Lasar1k <alf.ivan2002@gmail.com>
 #ifndef INCLUDE_HEADER_HPP_
 #define INCLUDE_HEADER_HPP_
 #include <iostream>
@@ -8,6 +7,7 @@ template <typename T>
 class SharedPtr {
   T*Sptr = nullptr;
   std::atomic_uint* counter;
+
  public:
   SharedPtr(){
     Sptr = nullptr;
@@ -24,21 +24,29 @@ class SharedPtr {
     *this = std::move(r);
   }
   ~SharedPtr(){
-    if(counter == nullptr) {return;}
-    else{
+    if(counter == nullptr) 
+    {
+      return;
+    }
+    else
+    {
       *(counter) = *(counter) - 1;
-      if(*(counter) == 0){
+      if(*(counter) == 0)
+      {
         delete Sptr;
         delete counter;
       }
-      else if(*(counter) > 0){
+      else if(*(counter) > 0)
+      {
         Sptr = nullptr;
         counter = nullptr;
       }
     }
   }
-  auto operator=(const SharedPtr& r){
-    if(*this == r){
+  auto operator=(const SharedPtr& r)
+  {
+    if(*this == r)
+    {
       return *this;
     }
     this->~SharedPtr();
@@ -47,8 +55,10 @@ class SharedPtr {
     counter++;
     return *this;
   }
-  auto operator=(SharedPtr&& r){
-    if(*this == r){
+  auto operator=(SharedPtr&& r)
+  {
+    if(*this == r)
+    {
       return *this;
     }
     this->~SharedPtr();
@@ -62,8 +72,14 @@ class SharedPtr {
 
   // проверяет, указывает ли указатель на объект
   operator bool() const{
-    if(*(counter) > 0) return true;
-    else return false;
+    if(*(counter) > 0) 
+    {
+      return true;
+    }
+    else 
+    {
+      return false;
+    }
   }
   auto operator*() const{
     return *Sptr;
@@ -84,7 +100,8 @@ class SharedPtr {
     counter = new std::atomic_uint[1];
   }
   void swap(SharedPtr& r){
-    if(*this == r){
+    if(*this == r)
+    {
       return;
     }
     std::swap(Sptr,r.Sptr);
@@ -92,8 +109,14 @@ class SharedPtr {
   }
   // возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
   unsigned int use_count() const{
-    if(Sptr!=nullptr) return *(counter);
-    else return 0;
+    if(Sptr!=nullptr)
+    {
+      return *(counter);
+    }
+    else
+    {
+      return 0;
+    }
   }
 };//
 // Created by lasar1k on 9/17/21.
