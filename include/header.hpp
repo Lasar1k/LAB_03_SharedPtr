@@ -24,19 +24,18 @@ class SharedPtr {
     *this = std::move(r);
   }
   ~SharedPtr(){
-    if(counter == nullptr) 
+    if (counter == nullptr)
     {
       return;
     }
-    else
-    {
+    else{
       *(counter) = *(counter) - 1;
-      if(*(counter) == 0)
+      if (*(counter) == 0)
       {
         delete Sptr;
         delete counter;
       }
-      else if(*(counter) > 0)
+      else if (*(counter) > 0)
       {
         Sptr = nullptr;
         counter = nullptr;
@@ -57,7 +56,7 @@ class SharedPtr {
   }
   auto operator=(SharedPtr&& r)
   {
-    if(*this == r)
+    if (*this == r)
     {
       return *this;
     }
@@ -72,12 +71,11 @@ class SharedPtr {
 
   // проверяет, указывает ли указатель на объект
   operator bool() const{
-    if(*(counter) > 0) 
+    if (*(counter) > 0) 
     {
       return true;
     }
-    else 
-    {
+    else{
       return false;
     }
   }
@@ -100,21 +98,20 @@ class SharedPtr {
     counter = new std::atomic_uint[1];
   }
   void swap(SharedPtr& r){
-    if(*this == r)
+    if (*this == r)
     {
       return;
     }
-    std::swap(Sptr,r.Sptr);
-    std::swap(counter,r.counter);
+    std::swap(Sptr, r.Sptr);
+    std::swap(counter, r.counter);
   }
   // возвращает количество объектов SharedPtr, которые ссылаются на тот же управляемый объект
   unsigned int use_count() const{
-    if(Sptr!=nullptr)
+    if (Sptr!=nullptr)
     {
       return *(counter);
     }
-    else
-    {
+    else{
       return 0;
     }
   }
